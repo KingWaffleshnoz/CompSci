@@ -1,5 +1,3 @@
-package CompSci;
-
 //Jared Lyon P1
 //Class-A5: Movie Class
 

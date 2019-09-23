@@ -1,9 +1,7 @@
-package CompSci;
-
 /**
- * Antonio Fontan, Allan Lee, Jared Lyon
- * Class-A7: Demo Class
- * Models an airport where an employee upgrades the tester class and adds fuel
+ * Antonio Fontan, Allan Lee, Jared Lyon 
+ * Class-A7: Demo Class Models an airport
+ * where an employee upgrades the tester class and adds fuel
  */
 public class AirportTester_1FonLeeLyo {
     public static void main(String[] args) {
