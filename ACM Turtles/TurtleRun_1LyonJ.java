@@ -15,25 +15,30 @@ import java.util.Random;
  * Jared Lyon
  * Period 1
  * LoopsA1: Turtle Run (ACM)
- * This program builds a racetrack for three turtles, the first of which to win will do a victory dance!
+ * This program builds a racetrack for three turtles, the first of which to win will do a victory dance! 
+ * Of course, there's some great commentary in the command lines :)
  */
 
  public class TurtleRun_1LyonJ extends GraphicsProgram {
     public void run() {
-        setSize(1200, 1000);
-        GRect r = new GRect(700, 200, 20, 600);
+        setSize(1200, 500);
+        GRect r = new GRect(700, 50, 20, 350);
         r.setColor(new Color(0, 0, 0));
         r.setFilled(true);
         r.setFillColor(new Color(0, 0, 0));
         add(r);
         
-        GTurtle Barry = new GTurtle(100, 250);
-        GTurtle Larry = new GTurtle(100, 500);
-        GTurtle Harry = new GTurtle(100, 750);
+        GTurtle Barry = new GTurtle(100, 100);
+        GTurtle Larry = new GTurtle(100, 225);
+        GTurtle Harry = new GTurtle(100, 350);
         add(Barry);
         add(Larry);
         add(Harry);
         
+        System.out.println("Our racers are as follows: Barry in lane one, Larry in lane two, and Harry in lane three!");
+        System.out.println("As of last night, the Vegas odds heavily favored Barry, the previous Turtle Derby 500 champion, by a margin of +172!!");
+        System.out.println("They're off! Barry out with a great opening, but the challengers are just pixels behind him...who will win?!");
+
         boolean hasReachedEdgeB = false;
         boolean hasReachedEdgeL = false;
         boolean hasReachedEdgeH = false;
@@ -76,7 +81,8 @@ import java.util.Random;
         while (hasReachedEdgeB && hasReachedEdgeL && hasReachedEdgeH) {
             if (bVictory) {
                 Barry.move(100, 0);
-                Barry.move(0, 50);
+                Barry.move(0, -50);
+                System.out.println("And Barry takes the win! He manages to hold onto his title for another year!");
                 while (bVictory) {
                     Barry.move(0, 100);
                     Barry.move(100, 0);
@@ -85,7 +91,8 @@ import java.util.Random;
                 }
             } else if (lVictory) {
                 Larry.move(100, 0);
-                Larry.move(0, 50);
+                Larry.move(0, -50);
+                System.out.println("Larry with the upset! I tell ya, folks, we haven't seen something like this since the 1973 Winter Open!");
                 while (lVictory) {
                     Larry.move(0, 100);
                     Larry.move(100, 0);
@@ -94,7 +101,8 @@ import java.util.Random;
                 }
             } else if (hVictory) {
                 Harry.move(100, 0);
-                Larry.move(0, 50);
+                Harry.move(0, -50);
+                System.out.println("The Idaho Rookie scrapes by with the victory! What an upset! No one could have seen this coming, not even Harry himself!");
                 while (hVictory) {
                     Harry.move(0, 100);
                     Harry.move(100, 0);
