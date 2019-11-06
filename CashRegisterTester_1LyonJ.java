@@ -3,8 +3,8 @@ import java.lang.Math;
 
 public class CashRegisterTester_1LyonJ {
     public static void main(String[] args) {
-        CashRegister market = new CashRegister(40, 100, 100, 100);
-        System.out.println("Author: Jared Lyon\n-<>- Bellarmine Market -<>-");
+        CashRegister market = new CashRegister(250, 250, 500, 1000);
+        System.out.println("Author: Jared Lyon\n-<>- Teaspoon Cash Register -<>-");
         market.purchase();
     }
 }
@@ -25,9 +25,9 @@ class CashRegister {
     }
 
     public void purchase() {
-        System.out.println("Input purchase amount:");
+        System.out.println("------\nBeginning new transacation...\n------\nInput purchase amount:");
         double amt = input.nextDouble();
-        System.out.println("Input payment amount:");
+        System.out.println("------\nInput payment amount:");
         double paid = input.nextDouble();
 
         if (amt < paid) {
@@ -41,33 +41,42 @@ class CashRegister {
             change = change % 5;
             int p = Math.round((int)change / 1);
 
-            quarters =- q;
-            dimes =- d;
-            nickels =- n;
-            pennies =- p;
+            quarters += q;
+            dimes += d;
+            nickels += n;
+            pennies += p;
 
-            if (q == 0 && d == 0 && n == 0 && p == 0) {
-                System.out.println("Insufficient till change!");
+            if (q < -250 || d < -250 || n < -500 || p < -1000) {
+                System.out.println("------\nInsufficient till change to complete your purchase!");
+                System.out.println("Exiting register...\n------");
+            } else if (quarters < 0 || dimes < 0 || nickels < 0 || pennies < 0) {
+                System.out.println("The till lacks the needed coins!\nExiting register...\n------");
             } else {
-                toString();
+                System.out.println(toString());
                 System.out.println("Continue? [1]");
                 int yes = input.nextInt();
-                if (yes == '1') {
+                if (yes == 1) {
                     purchase();
                 } else {
                     return;
                 }
             }
         } else if (amt == paid) {
-            System.out.println("You paid in exact change!");
+            System.out.println("------\nYou paid in exact change!");
+            System.out.println("Continue? [1]");
+            int yes = input.nextInt();
+            if (yes == 1) {
+                purchase();
+            } else {
+                return;
+            }
         } else {
-            System.out.println("Insufficient payment!");
-            System.out.println("------\nRestarting...\n------");
+            System.out.println("------\nInsufficient payment! Restarting...");
             purchase();
         }
     }
 
     public String toString() {
-        return "Quarters: " + quarters + "\nDimes: " + dimes + "\nNickels: " + nickels + "\nPennies: " + pennies;
+        return "------\nRemaining Change: \nQuarters: " + quarters + "\nDimes: " + dimes + "\nNickels: " + nickels + "\nPennies: " + pennies + "\n------";
     }
 }
