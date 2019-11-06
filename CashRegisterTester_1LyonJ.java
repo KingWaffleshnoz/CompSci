@@ -4,12 +4,12 @@ import java.lang.Math;
 public class CashRegisterTester_1LyonJ {
     public static void main(String[] args) {
         CashRegister market = new CashRegister(40, 100, 100, 100);
+        System.out.println("Author: Jared Lyon\n-<>- Bellarmine Market -<>-");
         market.purchase();
     }
 }
 
 class CashRegister {
-    public boolean done;
     private int quarters;
     private int dimes;
     private int nickels;
@@ -24,12 +24,14 @@ class CashRegister {
         this.pennies = pennies;
     }
 
-    public void purchase(double amt, double paid) {
-        amt = input.nextDouble();
-        paid = input.nextDouble();
+    public void purchase() {
+        System.out.println("Input purchase amount:");
+        double amt = input.nextDouble();
+        System.out.println("Input payment amount:");
+        double paid = input.nextDouble();
 
-        double calc = amt - paid;
         if (amt < paid) {
+            double calc = amt - paid;
             int change = (int)(Math.ceil(calc * 100));
             int q = Math.round((int)change / 25);
             change = change % 25;
@@ -46,15 +48,15 @@ class CashRegister {
 
             if (q == 0 && d == 0 && n == 0 && p == 0) {
                 System.out.println("Insufficient till change!");
-                done = true;
             } else {
-                purchase();
+                toString();
             }
         } else if (amt == paid) {
             System.out.println("You paid in exact change!");
         } else {
             System.out.println("Insufficient payment!");
-            System.out.println("Resubmit funds:");
+            System.out.println("------\nRestarting...\n------");
+            purchase();
         }
     }
 
