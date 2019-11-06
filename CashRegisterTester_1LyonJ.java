@@ -50,6 +50,13 @@ class CashRegister {
                 System.out.println("Insufficient till change!");
             } else {
                 toString();
+                System.out.println("Continue? [1]");
+                int yes = input.nextInt();
+                if (yes == '1') {
+                    purchase();
+                } else {
+                    return;
+                }
             }
         } else if (amt == paid) {
             System.out.println("You paid in exact change!");
@@ -61,7 +68,6 @@ class CashRegister {
     }
 
     public String toString() {
-        String output = "Quarters: " + quarters + "\nDimes: " + dimes + "\nNickels: " + nickels + "\nPennies: " + pennies;
-        return output;
+        return "Quarters: " + quarters + "\nDimes: " + dimes + "\nNickels: " + nickels + "\nPennies: " + pennies;
     }
 }
