@@ -4,30 +4,11 @@ import java.lang.Math;
 public class CashRegisterTester_1LyonJ {
     public static void main(String[] args) {
         Till market = new Till(40, 100, 100, 100);
+        boolean done = false;
         Scanner input = new Scanner(System.in);
-        System.out.println("Input purchase price:");
-        amt = input.nextInt();
-        System.out.println("Input amount paid:");
-        paid = input.nextInt();
 
-        if (amt > paid) {
-            System.out.println("Insufficient payment!");
-        } else {
-            Till.purchase();
-        }
-
-        while(tillVall > 0) {
-            System.out.println("Enter purchase: ");
-            input = input.nextInt();
-            System.out.println("You guessed " + input + "!");
-
-            if (tillVall = 0) {
-                System.out.println("Wow, you did it! That's the right answer!");
-            } else if (guess >= find) {
-                System.out.println("Nah, the answer is lower!");
-            } else if (guess <= find) {
-                System.out.println("It's higher! Try again!");
-            }
+        while (!done) {
+            market.purchase();
         }
     }
 
@@ -47,20 +28,36 @@ public class CashRegisterTester_1LyonJ {
 
         public void purchase(double amt, double paid) {
             double calc = amt - paid;
+            if (amt < paid) {
+                int change = (int)(Math.ceil(calc * 100));
+                int q = Math.round((int)change / 25);
+                change = change % 25;
+                int d = Math.round((int)change / 10);
+                change = change % 10;
+                int n = Math.round((int)change / 5);
+                change = change % 5;
+                int p = Math.round((int)change / 1);
 
-            int change = (int)(Math.ceil(calc*100));
-            int q = Math.round((int)change/25);
-            change=change%25;
-            int d = Math.round((int)change/10);
-            change=change%10;
-            int n = Math.round((int)change/5);
-            change=change%5;
-            int p = Math.round((int)change/1);
-        
-            System.out.println("Quarters: " + q);
-            System.out.println("Dimes: " + d);
-            System.out.println("Nickels: " + n);
-            System.out.println("Pennies: " + p);
+                quarters =- q;
+                dimes =- d;
+                nickels =- n;
+                pennies =- p;
+
+                if (q == 0 && d == 0 && n == 0 && p == 0) {
+                    System.out.println("Insufficient till change!");
+                    done = true;
+                }
+            } else if (amt == paid) {
+                System.out.println("You paid in exact change!");
+            } else {
+                System.out.println("Insufficient payment!");
+                System.out.println("Resubmit funds:");
+                double amt = input.nextDouble();
+            }
+
+        public String toString() {
+            String output = "Quarters: " + quarters + "\nDimes: " + dimes + "\nNickels: " + nickels + "\nPennies: " + pennies;
+            return output;
         }
     }
 }
