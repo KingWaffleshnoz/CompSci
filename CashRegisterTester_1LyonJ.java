@@ -3,16 +3,20 @@ import java.lang.Math;
 
 public class CashRegisterTester_1LyonJ {
     public static void main(String[] args) {
-        Till market = new Till(40, 100, 100, 100);
+        CashRegister market = new CashRegister(40, 100, 100, 100);
         boolean done = false;
-        Scanner input = new Scanner(System.in);
 
         while (!done) {
-            market.purchase();
+            Scanner input = new Scanner(System.in);
+            double amt = input.nextDouble();
+            double paid = input.nextDouble();
+            input.close();
+            market.purchase(amt, paid);
         }
     }
 
-    class Till {
+    class CashRegister {
+        public boolean done;
         private int quarters;
         private int dimes;
         private int nickels;
@@ -52,8 +56,8 @@ public class CashRegisterTester_1LyonJ {
             } else {
                 System.out.println("Insufficient payment!");
                 System.out.println("Resubmit funds:");
-                double amt = input.nextDouble();
             }
+        }
 
         public String toString() {
             String output = "Quarters: " + quarters + "\nDimes: " + dimes + "\nNickels: " + nickels + "\nPennies: " + pennies;
