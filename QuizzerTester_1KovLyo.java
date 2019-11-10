@@ -1,4 +1,4 @@
-import java.util.Math;
+import java.lang.Math;
 import java.util.Scanner;
 
 public class QuizzerTester_1KovLyo {
@@ -24,7 +24,7 @@ class Quiz {
 
     //mutator - questions
     public void askQuestions() {
-
+        System.out.println("------\nWelcome, " + name + "! Beginning quiz now...");
     }
 
     //accessor
