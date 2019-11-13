@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Loops-A6: Quizzer (Nov-Pair)
  * Hosts a 10 question quiz including 7 multiple choice and 3 short answer questions w/ username and scoring results
  */
-public class QuizzerTester_1KovLyo {
+public class QuizzerTester_1KovLyoV2 {
     public static void main(String[] args) {
         //main init
         Scanner inputName = new Scanner(System.in);
@@ -19,7 +19,7 @@ public class QuizzerTester_1KovLyo {
 
         //quiz execution
         quiz.askQuestions();
-        System.out.println(quiz.toString());
+        System.out.println(quiz.getScore());
     }
 }
 
@@ -224,7 +224,7 @@ class Quiz {
     } 
 
     //accessor
-    public String toString() {
+    public String getScore() {
         //determine scoring
         if (score == 10){
             quip = "Move over, Stephen Hawking!";
