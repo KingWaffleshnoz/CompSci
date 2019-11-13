@@ -1,12 +1,18 @@
 import java.util.Scanner;
+//import scanner
 
 public class QuizzerTester_1KovLyo {
     public static void main(String[] args) {
+        //main init
         Scanner inputName = new Scanner(System.in);
         String username = "";
         System.out.println("Welcome to the KovLyo Inc. National Intelligence Test!\nEnter name:");
+
+        //get username and start quiz
         username = inputName.next();
         Quiz quiz = new Quiz(username);
+
+        //quiz execution
         quiz.askQuestions();
         System.out.println(quiz.toString());
     }
