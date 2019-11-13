@@ -1,6 +1,11 @@
 import java.util.Scanner;
 //import scanner
 
+/**
+ * Zachary Koverman, Jared Lyon
+ * Loops-A6: Quizzer (Nov-Pair)
+ * Hosts a 10 question quiz including 7 multiple choice and 3 short answer questions w/ username and scoring results
+ */
 public class QuizzerTester_1KovLyo {
     public static void main(String[] args) {
         //main init
@@ -19,6 +24,7 @@ public class QuizzerTester_1KovLyo {
 }
 
 class Quiz {
+    //variables + scanner
     private int score = 0;
     private boolean disgust = false;
     private String name;
@@ -39,7 +45,7 @@ class Quiz {
         System.out.println("   A. Ulaanbataar\n   B. Oslo");
         System.out.println("   C. Guatemala City\n   D. Helsinki");
         boolean a1 = false;
-        while(a1 == false){
+        while (a1 == false) {
             String ans = input.next();
             if (ans.equals("B")) {
                score++;
@@ -59,7 +65,7 @@ class Quiz {
         System.out.println("   A. Boot\n   B. Ball");
         System.out.println("   C. Bone\n   D. Bell");
         boolean a2 = false;
-        while(a2 == false){
+        while (a2 == false) {
             String ans = input.next();
             if (ans.equals("C")) {
                score++;
@@ -79,7 +85,7 @@ class Quiz {
         System.out.println("   A. 200-250 million\n   B. 350-375 million");
         System.out.println("   C. 130-150 million\n   D. 75-80 million");
         boolean a3 = false;
-        while(a3 == false){
+        while (a3 == false) {
             String ans = input.next();
             if (ans.equals("B")) {
                score++;
@@ -99,7 +105,7 @@ class Quiz {
         System.out.println("   A. 9-10 feet\n   B. 5-6 feet");
         System.out.println("   C. 8-9 feet\n   D. 7-8 feet");
         boolean a4 = false;
-        while(a4 == false){
+        while (a4 == false) {
             String ans = input.next();
             if (ans.equals("D")) {
                score++;
@@ -119,7 +125,7 @@ class Quiz {
         System.out.println("   A. Toyota AE86\n   B. Nissan Leaf");
         System.out.println("   C. Subaru Impreza\n   D. Mazda Miata");
         boolean a5 = false;
-        while(a5 == false){
+        while (a5 == false) {
             String ans = input.next();
             if (ans.equals("A")) {
                score++;
@@ -139,7 +145,7 @@ class Quiz {
         System.out.println("   A. Montgomery Biscuits\n   B. New Orleans Baby Cakes");
         System.out.println("   C. Albuquerque Isotopes\n   D. Savannah Peaches");
         boolean a6 = false;
-        while(a6 == false){
+        while (a6 == false) {
             String ans = input.next();
             if (ans.equals("D")) {
                score++;
@@ -159,7 +165,7 @@ class Quiz {
         System.out.println("   A. Lemon San Pellegrino\n   B. Lemon-Lime Gatorade");
         System.out.println("   C. Peet's Iced Mocha\n   D. Strawberry-Banana Chobani");
         boolean a7 = false;
-        while(a7 == false){
+        while (a7 == false) {
             String ans = input.next();
             if (ans.equals("A")) {
                score++;
@@ -177,7 +183,7 @@ class Quiz {
         //Question 8
         System.out.println("Question 7: Is a hot dog a sandwich? [Enter 'Yes' or 'No']");
         boolean a8 = false;
-        while(a8 == false){
+        while (a8 == false) {
             String ans = input.next();
             if (ans.equals("No")) {
                score++;
@@ -197,7 +203,7 @@ class Quiz {
         System.out.println("Question 9: When was sliced bread invented?");
         System.out.println("Answer format: MM/DD/YYYY (Ex: 03/04/2004)");
         boolean a9 = false;
-        while(a9 == false){
+        while (a9 == false) {
             String ans = input.next();
             if (ans.equals("04/06/1928")) {
                score++;
@@ -208,7 +214,7 @@ class Quiz {
         //Question 10
         System.out.println("Question 10: What number am I thinking of in a range of 1-20?");
         boolean a10 = false;
-        while(a10 == false){
+        while (a10 == false) {
             int ans = input.nextInt();
             if (ans == 19) {
                score++;
@@ -219,6 +225,7 @@ class Quiz {
 
     //accessor
     public String toString() {
+        //determine scoring
         if (score == 10){
             quip = "Move over, Stephen Hawking!";
         }
@@ -238,10 +245,12 @@ class Quiz {
             quip = "Ouch.";
         }
 
+        //tack on edgecase insult
         if (disgust == true) {
             quip += "\nAnd hot dogs are NOT sandwiches, you complete and utter ignoramus!";
         }
 
+        //return numerical score + comment
         return "Score: " + score + "/10 \n" + quip;
     }
 }
