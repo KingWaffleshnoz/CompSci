@@ -205,7 +205,7 @@ class Quiz {
         boolean a9 = false;
         while (a9 == false) {
             String ans = input.next();
-            if (ans.equals("04/06/1928")) {
+            if (ans.equals("07/06/1928")) {
                score++;
             }
             a9 = true;
