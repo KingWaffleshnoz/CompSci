@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Loops-A6: Quizzer (Nov-Pair)
  * Hosts a 10 question quiz including 7 multiple choice and 3 short answer questions w/ username and scoring results
  */
-public class QuizzerTester_1KovLyoV2 {
+public class QuizzerTester_1KovLyoV3 {
     public static void main(String[] args) {
         //main init
         Scanner inputName = new Scanner(System.in);
@@ -181,7 +181,7 @@ class Quiz {
         }
         
         //Question 8
-        System.out.println("Question 7: Is a hot dog a sandwich? [Enter 'Yes' or 'No']");
+        System.out.println("Question 8: Is a hot dog a sandwich? [Enter 'Yes' or 'No']");
         boolean a8 = false;
         while (a8 == false) {
             String ans = input.next();
