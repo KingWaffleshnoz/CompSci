@@ -8,6 +8,7 @@ public class QuizzerTester_1KovLyo {
         username = inputName.next();
         Quiz quiz = new Quiz(username);
         quiz.askQuestions();
+        System.out.println(quiz.toString());
     }
 }
 
@@ -208,12 +209,10 @@ class Quiz {
             }
             a10 = true;
         }
-        
-        getScore();
     } 
 
     //accessor
-    public String getScore() {
+    public String toString() {
         if (score == 10){
             quip = "Move over, Stephen Hawking!";
         }
@@ -237,6 +236,6 @@ class Quiz {
             quip += "\nAnd hot dogs are NOT sandwiches, you complete and utter ignoramus!";
         }
 
-        return "Score: " + score + " out of ten. \n" + quip;
+        return "Score: " + score + "/10 \n" + quip;
     }
 }
