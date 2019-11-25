@@ -63,7 +63,7 @@ class Course {
                 temp = i;
                 break;
             } else {
-                temp = 0;
+                temp = -1;
             }
         }
         return temp += 1;
