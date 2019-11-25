@@ -52,14 +52,15 @@ class Course {
 
     //Accessors
     public String get(int index) {
-        String x = students[index];
+        String x = students[index - 1];
         return x;
     }
 
     public int find(String name) {
         int len = students.length;
         for (int i = 0; i < len; i++) {
-            if (students[i].equals(name)) {
+            String test = students[i];
+            if (test.equals(name)) {
                 temp = i;
             } else {
                 temp = 0;
@@ -79,7 +80,8 @@ class Course {
         } else {
             students = new String[size];
             for (int i = 0; i < size; i++) {
-                System.out.println("Input student " + i + "'s name:");
+                int z = i + 1;
+                System.out.println("Input student " + z + "'s name:");
                 Scanner inputStudent = new Scanner(System.in);
                 students[i] = inputStudent.next();
             }
