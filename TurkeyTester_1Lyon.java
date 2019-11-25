@@ -59,14 +59,14 @@ class Course {
     public int find(String name) {
         int len = students.length;
         for (int i = 0; i < len; i++) {
-            String test = students[i];
-            if (test.equals(name)) {
+            if (students[i].equals(name)) {
                 temp = i;
+                break;
             } else {
                 temp = 0;
             }
         }
-        return temp;
+        return temp += 1;
     }
 
     //Mutator
