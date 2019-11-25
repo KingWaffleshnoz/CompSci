@@ -1,9 +1,14 @@
 import java.util.Scanner;
 import java.util.Arrays;
 
+/**
+ * Jared Lyon
+ * Array-A4: Find Student
+ * Helps the user create an array class and search it via index or string
+ */
 public class TurkeyTester_1Lyon {
     public static void main(String[] args) {
-        System.out.println("Welcome to the course creator!\nInput class name:");
+        System.out.println("Welcome to Jared's course creator!\nInput class name:");
         Scanner input = new Scanner(System.in);
         String name = "";
         name = input.next();
@@ -18,7 +23,7 @@ public class TurkeyTester_1Lyon {
             System.out.println(obj.get(get));
             
             System.out.println("Search name:");
-            String find = "";
+            String find;
             find = input.next();
             System.out.println(obj.find(find));
 
@@ -29,7 +34,7 @@ public class TurkeyTester_1Lyon {
                     done = false;
                 } else {
                     System.out.println("Exiting...");
-                    done = true;
+                    return;
                 }
         }
     }
