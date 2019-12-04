@@ -7,7 +7,7 @@ import java.lang.Math;
  * LoopsA4: Bell Mkt Coin Chgr
  * This program emulates a simple cash register used for cash purchases
  */
-public class CashRegisterTester_1LyonJ {
+public class CashRegisterTester_1LyonJV2 {
     public static void main(String[] args) {
         CashRegister market = new CashRegister(250, 250, 500, 1000);
         System.out.println("Author: Jared Lyon\n-<>- Teaspoon Cash Register -<>-");
@@ -92,6 +92,11 @@ class CashRegister {
 
     //return till values
     public String toString() {
-        return "------\nRemaining Change: \nQuarters: " + quarters + "\nDimes: " + dimes + "\nNickels: " + nickels + "\nPennies: " + pennies + "\n------";
+        int q = 250 - quarters;
+        int d = 250 - dimes;
+        int n = 500 - nickels;
+        int p = 1000 - pennies;
+        return "------\nChange distributed:\n Quarters: " + q + "\nDimes: " + d + "\nNickels: " + n + "\nPennies: " + p + 
+                "\n------\nRemaining Change: \nQuarters: " + quarters + "\nDimes: " + dimes + "\nNickels: " + nickels + "\nPennies: " + pennies + "\n------";
     }
 }
