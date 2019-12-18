@@ -75,7 +75,7 @@ class Course {
 
     //Accessors
     public String get(int index) {
-        return studentlist[index - 1].toString();
+        return studentlist[index - 1].getName();
     }
 
     public int find(String name) {
