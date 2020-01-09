@@ -23,62 +23,103 @@ import javax.swing.JOptionPane;
 
  public class TurtleRace_1Lyon extends GraphicsProgram {
     public void run() {
-        boolean[] done;
+        int count1 = 0;
+        int count2 = 0;
+        int tiebreak = 0;
+        boolean celebration = false;
+        boolean done = false;
+        boolean[] finished;
+        int[] x;
         GTurtle[] turts;
-        int[] victory;
-        boolean finished;
-        int champ = 0;
-        String winner;
-
+        int[] victor;
+  
+        //set finish line
         setSize(1200, 1200);
         GRect r = new GRect(700, 50, 20, 350);
         r.setColor(new Color(0, 0, 0));
         r.setFilled(true);
         r.setFillColor(new Color(0, 0, 0));
         add(r);
-
+  
+        //user interface
         String inputFromUser = JOptionPane.showInputDialog("Enter number (2-9):");
         int input = Integer.parseInt( inputFromUser );
-        if (input > 9 || input < 2) {
-            System.out.println("Out of range!");
-            return;
-        } else {
-            System.out.println("Creating " + input + " turtles...");
-        }
-        
-        victory = new int[input];
+        System.out.println("Racing " + input + " turtles..." );
+        victor = new int[input];
         turts = new GTurtle[input];
-        done = new boolean[input];
+        finished = new boolean[input];
+
+        //add cuties
         for (int i = 0; i < input; i++) {
-            turts[i] = new GTurtle(100, 100 + 125 * i);
-            add(turts[i]);
+           turts[i] = new GTurtle(100, 100 + 125 * i);
+           add(turts[i]);
         }
 
-        while (!finished) {
-            for (int i = 0; i < input; i++) {
-                if (turts[i].getX() < done) {
-                   turts[i].forward((int)(Math.random() * (75 - 10 + 1)) + 10);
-                } else if (done[i] == false) {
-                    done[i] = true;
-                    champ++;
-                    if (champ == 1) {
-                        winner = turts[i];
-                    }
+        //race them
+        while (!done) {
+           for(int i = 0; i < input; i++) {
+              if (turts[i].getX() < 720) {
+                 turts[i].forward((int)(Math.random() * (50 - 10 + 1)) + 10);
+              } else if (finished[i] == false) {
+                if (tiebreak == 0) {
+                    finished[i] = true;
+                    tiebreak = 1;
+                    count1++;
                 }
-            }
+                if (tiebreak == -1) {
+                    finished[i] = true;
+                    count1++;
+                } 
+                if (tiebreak == 1) {
+                    finished[i] = true;
+                    victor[count2] = i;
+                    count2++;
+                }
+              }
+           }
+           
+           //tiebreaker
+           if (tiebreak == 1 && count2 > 1) {
+              System.out.println("Calculating a tiebreak...");
+           }
 
-            if (turts[] == done[]) {
-                finished = true;
-            }
-        }
+           if (tiebreak == 1) {
+              tiebreak = -1;
+              System.out.println("Tiebreak resolved...");
+           }
 
-        while (finished) {
-            winner.move(0, 100);
-            winner.move(100, 0);
-            winner.move(0, -100);
-            winner.move(-100, 0);
+           if (count1 == input) {
+              done = true;
+              System.out.println("Ending race...");
+              if (count2 == 1) {
+                 System.out.println("Turtle " + victor[0] + " has finished first.");
+              }
+              if (count2 > 1) {
+                 System.out.println("All tying turtles:\n");
+                 for (int i = 0; i < count2; i++) {
+                    System.out.print((victor[i] + 1) + " ");
+                 }
+              }
+           }
         }
-    }
+        // victory screeeeeeeeeeeeeeeeech
+        for (int i = 0; i < count2; i++) {
+           turts[victor[i]].penUp();
+           turts[victor[i]].erasePath();
+           turts[victor[i]].setLocation(300 + 100 * i, 250);
+           turts[victor[i]].penDown();
+        }
+        int count = 0;
+        while(count < 500) {
+           count++;
+           for(int i = 0; i < count2; i++) {
+              turts[victor[i]].right(2);
+              turts[victor[i]].forward(7);
+              double y = Math.random() * 7;
+              if (y > 6) turts[victor[i]].right((Math.random() * 2) - 1);
+           }
+        }
+     }
     public static void main(String[] args) {
         new TurtleRace_1Lyon().start(args);
     }
