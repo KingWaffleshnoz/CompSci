@@ -50,13 +50,14 @@ import javax.swing.JOptionPane;
         int victory = 0;
         while (!finished) {
             for (int i = 0; i <= input; i++) {
-                if (i.getX() < 720) {
+                String name = i;
+                if (name.getX() < 720) {
                     int x = (int)(Math.random() * (50 - 10 + 1)) + 10;
-                    i.move(2*x, 0);
+                    name.move(2*x, 0);
                 } else {
                     check++;
                     if (check == 0) {
-                        victory = i;
+                        victory = name;
                     } else if (check == 9) {
                         finished = true;
                     }
