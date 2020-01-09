@@ -35,7 +35,7 @@ import javax.swing.JOptionPane;
   
         //set finish line
         setSize(1200, 1200);
-        GRect r = new GRect(700, 50, 20, 350);
+        GRect r = new GRect(700, 50, 20, 1100);
         r.setColor(new Color(0, 0, 0));
         r.setFilled(true);
         r.setFillColor(new Color(0, 0, 0));
@@ -51,7 +51,7 @@ import javax.swing.JOptionPane;
 
         //add cuties
         for (int i = 0; i < input; i++) {
-           turts[i] = new GTurtle(100, 100 + 125 * i);
+           turts[i] = new GTurtle(100, 100 + 50*i);
            add(turts[i]);
         }
 
@@ -66,10 +66,12 @@ import javax.swing.JOptionPane;
                     tiebreak = 1;
                     count1++;
                 }
+
                 if (tiebreak == -1) {
                     finished[i] = true;
                     count1++;
-                } 
+                }
+
                 if (tiebreak == 1) {
                     finished[i] = true;
                     victor[count2] = i;
@@ -91,9 +93,11 @@ import javax.swing.JOptionPane;
            if (count1 == input) {
               done = true;
               System.out.println("Ending race...");
+              
               if (count2 == 1) {
                  System.out.println("Turtle " + victor[0] + " has finished first.");
               }
+              
               if (count2 > 1) {
                  System.out.println("All tying turtles:\n");
                  for (int i = 0; i < count2; i++) {
@@ -102,22 +106,21 @@ import javax.swing.JOptionPane;
               }
            }
         }
-        // victory screeeeeeeeeeeeeeeeech
+
+        //victory dance for winner
         for (int i = 0; i < count2; i++) {
-           turts[victor[i]].penUp();
-           turts[victor[i]].erasePath();
-           turts[victor[i]].setLocation(300 + 100 * i, 250);
-           turts[victor[i]].penDown();
+         turts[victor[i]].setLocation(100, 100 + 50*i);
         }
-        int count = 0;
-        while(count < 500) {
-           count++;
-           for(int i = 0; i < count2; i++) {
-              turts[victor[i]].right(2);
-              turts[victor[i]].forward(7);
-              double y = Math.random() * 7;
-              if (y > 6) turts[victor[i]].right((Math.random() * 2) - 1);
-           }
+        
+        int timer = 0;
+        while (timer < 24) {
+            timer++;
+            for (int i = 0; i < count2; i++) {
+                turts[victor[i]].move(0, 100);
+                turts[victor[i]].move(100, 0);
+                turts[victor[i]].move(0, -100);
+                turts[victor[i]].move(-100, 0);
+            }
         }
      }
     public static void main(String[] args) {
