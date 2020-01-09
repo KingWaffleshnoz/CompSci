@@ -23,6 +23,13 @@ import javax.swing.JOptionPane;
 
  public class TurtleRace_1Lyon extends GraphicsProgram {
     public void run() {
+        boolean[] done;
+        GTurtle[] turts;
+        int[] victory;
+        boolean finished;
+        int champ = 0;
+        String winner;
+
         setSize(1200, 1200);
         GRect r = new GRect(700, 50, 20, 350);
         r.setColor(new Color(0, 0, 0));
@@ -39,37 +46,37 @@ import javax.swing.JOptionPane;
             System.out.println("Creating " + input + " turtles...");
         }
         
-        for (int i = 0; i <= input; i++) {
-            String name = i;
-            GTurtle name = new GTurtle(100, 100 + 125*i);
-            add(name);
+        victory = new int[input];
+        turts = new GTurtle[input];
+        done = new boolean[input];
+        for (int i = 0; i < input; i++) {
+            turts[i] = new GTurtle(100, 100 + 125 * i);
+            add(turts[i]);
         }
 
-        boolean finished = false;
-        int check = 0;
-        int victory = 0;
         while (!finished) {
-            for (int i = 0; i <= input; i++) {
-                String name = i;
-                if (name.getX() < 720) {
-                    int x = (int)(Math.random() * (50 - 10 + 1)) + 10;
-                    name.move(2*x, 0);
-                } else {
-                    check++;
-                    if (check == 0) {
-                        victory = name;
-                    } else if (check == 9) {
-                        finished = true;
+            for (int i = 0; i < input; i++) {
+                if (turts[i].getX() < done) {
+                   turts[i].forward((int)(Math.random() * (75 - 10 + 1)) + 10);
+                } else if (done[i] == false) {
+                    done[i] = true;
+                    champ++;
+                    if (champ == 1) {
+                        winner = turts[i];
                     }
                 }
+            }
+
+            if (turts[] == done[]) {
+                finished = true;
             }
         }
 
         while (finished) {
-            victory.move(0, 100);
-            victory.move(100, 0);
-            victory.move(0, -100);
-            victory.move(-100, 0);
+            winner.move(0, 100);
+            winner.move(100, 0);
+            winner.move(0, -100);
+            winner.move(-100, 0);
         }
     }
     public static void main(String[] args) {
