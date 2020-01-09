@@ -40,8 +40,9 @@ import javax.swing.JOptionPane;
         }
         
         for (int i = 0; i <= input; i++) {
-            GTurtle i = new GTurtle(100, 100 + 125*i);
-            add(i);
+            String name = i;
+            GTurtle name = new GTurtle(100, 100 + 125*i);
+            add(name);
         }
 
         boolean finished = false;
