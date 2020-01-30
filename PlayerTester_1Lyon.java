@@ -223,16 +223,16 @@ class Player {
     public int getHandValue() {
         int hand = 0;
         int count = 0;
+        if (hand <= 11 && count > 0) {
+            hand += 10;
+            Ace = true;
+        }
+
         for (Card card : playerHand) {
             if (card.getValue() == 1) {
                 count++;
             }
             hand += card.getValue();
-        }
-
-        if (hand <= 11 && count > 0) {
-            hand += 10;
-            Ace = true;
         }
         return hand;
     }
@@ -242,8 +242,8 @@ class Player {
 
         for (Card card : playerHand) {
             if (Ace && card.getValue() == 1) {
-                Ace = false;
                 System.out.println(card + " [" + 11 + "]");
+                Ace = false;
             } else {
                 System.out.println(card + " [" + card.getValue() + "]");
             }
