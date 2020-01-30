@@ -33,7 +33,6 @@ public class PlayerTester_1Lyon {
         player.drawCard(testDeck.draw()); player.drawCard(testDeck.draw());
         System.out.println("Player hand:");
         player.displayHand();
-
         System.out.println("------------------------");
 
         //play table
