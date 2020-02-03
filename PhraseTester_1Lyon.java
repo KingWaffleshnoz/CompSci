@@ -4,7 +4,7 @@
  * A short program that makes a string, replaces some of it, and prints a lot of it
  */
 
-public class PhraseTester_1Lyo {
+public class PhraseTester_1Lyon {
     //main
     public static void main(String[] args) {
        Phrase yes = new Phrase("This is a test that is mediocre.");

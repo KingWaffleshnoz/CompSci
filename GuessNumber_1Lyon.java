@@ -8,7 +8,7 @@ import java.lang.Math;
  * If-A1: Guess A Number
  * This class guesses a number 1-25 and has the user guess until successful
  */
-public class GuessNumber_1Lyo {
+public class GuessNumber_1Lyon {
     public static void main(String[] args) {
         //init scanner and guess var
         Scanner input = new Scanner(System.in);
