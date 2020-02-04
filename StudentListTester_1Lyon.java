@@ -7,7 +7,7 @@ import java.util.Arrays;
  * This program can auto-generate a course or allow the user to create a course with student objects that contain names, GPAs, and heights.
  * The program can search via index, student name, and will report the tallest student in the course.
  */
-public class XMasTreeTesterV2_1Lyon {
+public class StudentListTester_1Lyon {
     public static void main(String[] args) {
         System.out.println("Welcome to Jared's Xmas course creator version 2!\nInput class name:");
         Scanner input = new Scanner(System.in);
