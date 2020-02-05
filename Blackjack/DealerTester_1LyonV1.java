@@ -1,5 +1,7 @@
+import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.lang.Math;
 
 /**
  * Jared Lyon
@@ -28,27 +30,37 @@ public class DealerTester_1LyonV1 {
 
         System.out.println("------------------------");
 
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Dealer Game No. " + (i + 1));
+        //reset deck for dealer
+        Deck dealerDeck = new Deck();
+        dealerDeck.shuffle();
 
-            //reset deck for dealer
-            Deck dealerDeck = new Deck();
+        //play 5 dealer games
+        for (int i = 0; i < 5; i++) {
+            System.out.println("------------------------");
+            System.out.println("Dealer Game No. " + (i + 1));
             
             //set table for dealer test
             Dealer dealerTest = new Dealer();
             dealerTest.drawCard(dealerDeck.draw()); dealerTest.drawCard(dealerDeck.draw());
             System.out.println("Dealer hand:");
-            dealerTest.displayHand();
-            System.out.println("------------------------");
+            dealerTest.displayDealerHand();
+            System.out.println("-----------");
 
             //play table
             System.out.println("Playing table...");
             while (dealerTest.dealerDraw()) {
-                System.out.println("------------------------");
+                System.out.println("Drawing...");
                 dealerTest.drawCard(testDeck.draw());
-                dealerTest.displayHand();
-                System.out.println("------------------------");
             }
+            System.out.println("-----------");
+            System.out.println("Final hand:");
+            dealerTest.displayHand();
+            System.out.println("-----------");
+
+            //shuffle
+            System.out.println("Shuffling...");
+            dealerDeck.shuffle();
+            System.out.println("Shuffled!");
         }
     }
 }
@@ -115,6 +127,18 @@ class Dealer {
         }
 
         System.out.println("Hand value: " + value);
+    }
+
+    //dealer display
+    public void displayDealerHand() {
+        int value = getHandValue();
+
+        if (Ace && dealerHand.get(0).getValue() == 1) {
+            System.out.println(dealerHand.get(0) + " [" + 11 + "]");
+            Ace = false;
+        } else {
+            System.out.println(dealerHand.get(0) + " [" + dealerHand.get(0).getValue() + "]");
+        }
     }
 
     //mutators
@@ -226,16 +250,11 @@ class Deck {
     }
 
     public void shuffle() {
-        //delete deck
-        for (int i = 0; i < deck.size(); i++) {
-           deck.remove(0);
-        }
-        
-        //remake deck
-        for (int i = 1; i <= 4; i++) {
-            for (int u = 1; u <= 12; u++) {
-                deck.add(new Card(i, u));
-            }
+        for (int i = deck.size()-1; i <= 0; i--) {
+            int x = (int)(Math.random() * 20);
+            Card temp = deck.get(i);
+            deck.set(i, deck.get(x));
+            deck.set(x, temp);
         }
     }
 }
