@@ -8,22 +8,31 @@ import java.lang.Math;
  * AList-A11: Blackjack Game
  * Creates a BlackjackGame Class and an object of that class that will play one or more games of BlackJack.
  */
-public class BlackjackGame_1Lyon {
+public class BlackjackGame_1LyonV2 {
     public static void main( String[] args ) {
         BlackjackGame newGame = new BlackjackGame();
         newGame.run();
     }
 }
 
+//creates a class that implements a game of blackjack utilizing all other classes
 class BlackjackGame {
+    private String banner = 
+    "<<------------------------------------------->>\n" +
+    "<---------    B L A C K J A C K !   ---------->\n" +
+    "<<------------------------------------------->>\n";
+    /**
+     * Plays a game of blackjack pro-style in successive order
+     * Uses a loop mechanism to continually play indefinitely by reshuffling the deck
+     */
     public void run() {
+        System.out.println(banner);
         //create deck & shuffle, then set table w/ dealer
         System.out.println("Welcome, player(s)!\nInitializing deck...");
         Deck deck1 = new Deck();
-        deck1.display();
         deck1.shuffle();
         Dealer dealer1 = new Dealer();
-        System.out.println("Deck initialized!\n----------");
+        System.out.println("Deck initialized and shuffled!\n----------");
 
         /**
          * Creates players at table
@@ -109,7 +118,7 @@ class BlackjackGame {
             if (dealer1.getHandValue() > 21) {
                 System.out.println("Dealer busts! All players that did not bust win!");
                 for (int i = 0; i < playerCount; i++) {
-                    if (players.get(i).getHandValue() < 21) {
+                    if (players.get(i).getHandValue() <= 21) {
                         players.get(i).addChips((int)(players.get(i).getLastBet() * 1.5));
                     }
                 }
@@ -123,25 +132,31 @@ class BlackjackGame {
                     }
                 }
             //when dealer has no edge case
-            } else if (dealer1.getHandValue() < 21) {
+            } else if (dealer1.getHandValue() <= 21) {
                 System.out.println("Calculating winners...");
                 for (int i = 0; i < playerCount; i++) {
                     //players that beat dealer
-                    if (players.get(i).getHandValue() > dealer1.getHandValue() && players.get(i).getHandValue() < 21) {
+                    if (players.get(i).getHandValue() > dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
                         System.out.println(players.get(i).getName() + " wins!");
                         players.get(i).addChips((int)(players.get(i).getLastBet() * 1.5));
                     //players that push
-                    } else if (players.get(i).getHandValue() == dealer1.getHandValue() && players.get(i).getHandValue() < 21) {
-                        System.out.println(players.get(i).getName() + " pushs!");
+                    } else if (players.get(i).getHandValue() == dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
+                        System.out.println(players.get(i).getName() + " pushes!");
                         players.get(i).addChips((int)(players.get(i).getLastBet()));
                     //players that lose
-                    } else if (players.get(i).getHandValue() < dealer1.getHandValue() && players.get(i).getHandValue() < 21) {
+                    } else if (players.get(i).getHandValue() < dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
                         System.out.println(players.get(i).getName() + " loses to the dealer...");
                     //all players that busted previously
                     } else {
                         System.out.println(players.get(i).getName() + " busted!");
                     }
                 }
+            }
+
+            //display chip counts after round
+            System.out.println("Current chip counts:");
+            for (int i = 0; i < playerCount; i++) {
+                System.out.println(players.get(i).getName() + " finished with " + players.get(i).getChips() + " chips!");
             }
 
             //break loop?
