@@ -8,7 +8,7 @@ import java.lang.Math;
  * AList-A11: Blackjack Game
  * Creates a BlackjackGame Class and an object of that class that will play one or more games of BlackJack.
  */
-public class BlackjackGame_1LyonV3 {
+public class BlackjackGame_1LyonV4 {
     public static void main( String[] args ) {
         BlackjackGame newGame = new BlackjackGame();
         newGame.run();
@@ -69,14 +69,24 @@ class BlackjackGame {
                 players.get(i).drawCard(deck1.draw());
                 players.get(i).drawCard(deck1.draw());
                 System.out.println(players.get(i).getName() + ", you have " + players.get(i).getChips() + " chips. Please place bet:");
-                int bet = input.nextInt();
-                if (bet > players.get(i).getChips() || bet < 1) { 
-                    System.out.println("You can't bet that much! Resetting bet to 10..."); //also catches malarkey
-                    bet = 10;
+                if (players.get(i).getChips() < 1) {
+                    System.out.println(players.get(i).getName() + ", since you don't have any more chips, we're gonna skip your bet...");
+                } else {
+                    int bet = input.nextInt();
+                    if (bet > players.get(i).getChips() || bet < 1) { 
+                        System.out.println("You can't bet that amount!"); //also catches malarkey
+                        if (bet > players.get(i).getChips()) {
+                            System.out.println("Setting bet to max amount...");
+                            bet = players.get(i).getChips();
+                        } else if (bet < 1) {
+                            System.out.println("Setting bet to one...");
+                            bet = 1;
+                        }
+                    }
+                    players.get(i).subtractChips(bet);
+                    players.get(i).setLastBet(bet);
+                    System.out.println("You bet " + players.get(i).getLastBet() + " chips and now have " + players.get(i).getChips() + " chips.");
                 }
-                players.get(i).subtractChips(bet);
-                players.get(i).setLastBet(bet);
-                System.out.println("You bet " + players.get(i).getLastBet() + " chips and now have " + players.get(i).getChips() + " chips.");
             }
 
             //display dealer's first card
