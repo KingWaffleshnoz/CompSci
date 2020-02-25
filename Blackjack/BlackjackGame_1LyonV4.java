@@ -97,7 +97,7 @@ class BlackjackGame {
             System.out.println("---------");
             System.out.println("Dealer is checking for blackjack...");
             if (dealer1.getHandValue() == 21) {
-                System.out.println("---------\nDealer blackjacks! Everyone loses!\n---------");
+                System.out.println("---------\nDealer blackjacks! Everyone loses!\n---------"); //skips the round if dealer blackjack
             } else if (dealer1.getHandValue() != 21) {
                 System.out.println("No blackjack! Time to play...\n---------");
                 //go around table for hits and stands
@@ -317,7 +317,7 @@ class Player {
         String output = input.nextLine().toLowerCase();
         
         while (!output.equals("hit") && !output.equals("stand")) {
-            System.out.println("Error, retry...");
+            System.out.println("Error, please retry...");
             output = input.nextLine().toLowerCase();
         }
         return output;
