@@ -63,7 +63,8 @@ class BlackjackGame {
 
             /**
              * players first draw and ask for bets
-             * @condition no bets above fifty or below 1 
+             * @condition no bets above fifty or below 1; sets high bets to max amount / low bets to one
+             * @condition skips a player if they dont have any more chips
              */
             for (int i = 0; i < playerCount; i++) {
                 players.get(i).drawCard(deck1.draw());
@@ -71,6 +72,7 @@ class BlackjackGame {
                 System.out.println(players.get(i).getName() + ", you have " + players.get(i).getChips() + " chips. Please place bet:");
                 if (players.get(i).getChips() < 1) {
                     System.out.println(players.get(i).getName() + ", since you don't have any more chips, we're gonna skip your bet...");
+                    players.get(i).setLastBet(0); //sets last bet to 0 to prevent previous bet from rolling over
                 } else {
                     int bet = input.nextInt();
                     if (bet > players.get(i).getChips() || bet < 1) { 
@@ -89,76 +91,84 @@ class BlackjackGame {
                 }
             }
 
-            //display dealer's first card
+            //display dealer's first card and check for blackjack
             System.out.println("---------\nDisplaying first dealer card:");
             dealer1.displayDealerHand();
             System.out.println("---------");
-
-            //go around table for hits and stands
-            for (int i = 0; i < playerCount; i++) {
-                System.out.println(players.get(i).getName() +  "'s turn! Displaying hand...");
-                players.get(i).displayHand();
-                while (players.get(i).getUserChoice().equals("hit")) {
-                    players.get(i).drawCard(deck1.draw());
-                    System.out.println("Current hand:");
+            System.out.println("Dealer is checking for blackjack...");
+            if (dealer1.getHandValue() == 21) {
+                System.out.println("---------\nDealer blackjacks! Everyone loses!\n---------");
+            } else if (dealer1.getHandValue() != 21) {
+                System.out.println("No blackjack! Time to play...\n---------");
+                //go around table for hits and stands
+                for (int i = 0; i < playerCount; i++) {
+                    System.out.println(players.get(i).getName() +  "'s turn! Displaying hand...");
                     players.get(i).displayHand();
+                    while (players.get(i).getUserChoice().equals("hit")) {
+                        players.get(i).drawCard(deck1.draw());
+                        System.out.println("Current hand:");
+                        players.get(i).displayHand();
+                    }
+                    System.out.println("Displaying " + players.get(i).getName() + "'s final hand:");
+                    players.get(i).displayHand();
+                    if (players.get(i).getHandValue() > 21) {
+                        System.out.println(players.get(i).getName() + " busts!");
+                    }
+                    System.out.println("----------");
                 }
-                System.out.println("Displaying " + players.get(i).getName() + "'s final hand:");
-                players.get(i).displayHand();
-                if (players.get(i).getHandValue() > 21) {
-                    System.out.println(players.get(i).getName() + " busts!");
-                }
+
+                //reveal dealer's full hand
+                System.out.println("Displaying dealer hand:");
+                dealer1.displayHand();
                 System.out.println("----------");
-            }
 
-            //reveal dealer's full hand
-            System.out.println("Displaying dealer hand:");
-            dealer1.displayHand();
-            System.out.println("----------");
-
-            //dealer plays now
-            while (dealer1.dealerDraw()) {
-                System.out.println("Dealer is drawing...");
-                dealer1.drawCard(deck1.draw());
-            }
-            System.out.println("Final dealer hand:");
-            dealer1.displayHand();
-
-            //calculate winners
-            if (dealer1.getHandValue() > 21) {
-                System.out.println("Dealer busts! All players that did not bust win!");
-                for (int i = 0; i < playerCount; i++) {
-                    if (players.get(i).getHandValue() <= 21) {
-                        players.get(i).addChips((int)(players.get(i).getLastBet() * 1.5));
-                    }
+                //dealer plays now
+                while (dealer1.dealerDraw()) {
+                    System.out.println("Dealer is drawing...");
+                    dealer1.drawCard(deck1.draw());
                 }
-            //dealer blackjacks - all players lose except pushes
-            } else if (dealer1.getHandValue() == 21) {
-                System.out.println("Dealer has blackjack! All players lose or push...");
-                for (int i = 0; i < playerCount; i++) {
-                    if (players.get(i).getHandValue() == 21) {
-                        System.out.println(players.get(i).getName() + " pushes! Nice save!");
-                        players.get(i).addChips((int)(players.get(i).getLastBet()));
+                System.out.println("Final dealer hand:");
+                dealer1.displayHand();
+
+                //calculate winners
+                if (dealer1.getHandValue() > 21) {
+                    System.out.println("Dealer busts! All players that did not bust win!");
+                    for (int i = 0; i < playerCount; i++) {
+                        if (players.get(i).getHandValue() <= 21) {
+                            players.get(i).addChips((int)(players.get(i).getLastBet() * 2));
+                        }
                     }
-                }
-            //when dealer has no edge case
-            } else if (dealer1.getHandValue() <= 21) {
-                System.out.println("Calculating winners...");
-                for (int i = 0; i < playerCount; i++) {
-                    //players that beat dealer
-                    if (players.get(i).getHandValue() > dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
-                        System.out.println(players.get(i).getName() + " wins!");
-                        players.get(i).addChips((int)(players.get(i).getLastBet() * 1.5));
-                    //players that push
-                    } else if (players.get(i).getHandValue() == dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
-                        System.out.println(players.get(i).getName() + " pushes!");
-                        players.get(i).addChips((int)(players.get(i).getLastBet()));
-                    //players that lose
-                    } else if (players.get(i).getHandValue() < dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
-                        System.out.println(players.get(i).getName() + " loses to the dealer...");
-                    //all players that busted previously
-                    } else {
-                        System.out.println(players.get(i).getName() + " busted!");
+                //dealer blackjacks - all players lose except pushes
+                } else if (dealer1.getHandValue() == 21) {
+                    System.out.println("Dealer has blackjack! All players lose or push...");
+                    for (int i = 0; i < playerCount; i++) {
+                        if (players.get(i).getHandValue() == 21) {
+                            System.out.println(players.get(i).getName() + " pushes! Nice save!");
+                            players.get(i).addChips((int)(players.get(i).getLastBet()));
+                        }
+                    }
+                //when dealer has no edge case
+                } else if (dealer1.getHandValue() <= 21) {
+                    System.out.println("Calculating winners...");
+                    for (int i = 0; i < playerCount; i++) {
+                        //players that blackjack
+                        if (players.get(i).getHandValue() == 21) {
+                            players.get(i).addChips((int)(players.get(i).getLastBet() * 1.5));
+                        //players that beat dealer
+                        } else if (players.get(i).getHandValue() > dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
+                            System.out.println(players.get(i).getName() + " wins!");
+                            players.get(i).addChips((int)(players.get(i).getLastBet() * 2));
+                        //players that push
+                        } else if (players.get(i).getHandValue() == dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
+                            System.out.println(players.get(i).getName() + " pushes!");
+                            players.get(i).addChips((int)(players.get(i).getLastBet()));
+                        //players that lose
+                        } else if (players.get(i).getHandValue() < dealer1.getHandValue() && players.get(i).getHandValue() <= 21) {
+                            System.out.println(players.get(i).getName() + " loses to the dealer...");
+                        //all players that busted previously
+                        } else {
+                            System.out.println(players.get(i).getName() + " busted!");
+                        }
                     }
                 }
             }
@@ -186,7 +196,7 @@ class BlackjackGame {
                     players.get(i).reset();
                 }
             }
-        }
+        } //end of loop
 
         System.out.println("Final chip counts:");
         for (int i = 0; i < playerCount; i++) {
