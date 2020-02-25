@@ -8,7 +8,7 @@ import java.lang.Math;
  * AList-A11: Blackjack Game
  * Creates a BlackjackGame Class and an object of that class that will play one or more games of BlackJack.
  */
-public class BlackjackGame_1LyonV2 {
+public class BlackjackGame_1LyonV3 {
     public static void main( String[] args ) {
         BlackjackGame newGame = new BlackjackGame();
         newGame.run();
@@ -39,7 +39,7 @@ class BlackjackGame {
          * @condition at least 1 player is needed
          */
         Scanner input = new Scanner(System.in);
-        System.out.println("How many players will be joining?\n");
+        System.out.println("How many players will be joining?");
         int playerCount = input.nextInt();
         if (playerCount < 1) {
             System.out.println("Bruh. Come on.\n Creating one player..."); //catches malarkey
@@ -49,7 +49,7 @@ class BlackjackGame {
         System.out.println("Reminder that all players begin with 50 chips!");
         ArrayList<Player> players = new ArrayList<Player>(playerCount);
         for (int i = 0; i < playerCount; i++) {
-            System.out.println("Input player " + (i+1) + "'s name:'");
+            System.out.println("Input player " + (i+1) + "'s name:");
             String name = input.next();
             players.add(new Player(name));
         }
@@ -79,7 +79,7 @@ class BlackjackGame {
                 System.out.println("You bet " + players.get(i).getLastBet() + " chips and now have " + players.get(i).getChips() + " chips.");
             }
 
-            //display dealer's first car
+            //display dealer's first card
             System.out.println("---------\nDisplaying first dealer card:");
             dealer1.displayDealerHand();
             System.out.println("---------");
