@@ -380,7 +380,7 @@ class Deck {
         deck = new ArrayList<Card>();
 
         for (int i = 1; i <= 4; i++) {
-            for(int u = 1; u <= 12; u++) {
+            for (int u = 1; u <= 12; u++) {
                 deck.add(new Card(i, u));
             }
         }
@@ -424,7 +424,7 @@ class Deck {
         
         //remake it
         for (int i = 1; i <= 4; i++) {
-            for(int u = 1; u <= 12; u++) {
+            for (int u = 1; u <= 12; u++) {
                 deck.add(new Card(i, u));
             }
         }
