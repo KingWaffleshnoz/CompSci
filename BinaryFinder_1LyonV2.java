@@ -17,7 +17,9 @@ class SequentialFinder implements Finder {
         @param haystack where to look
    */
    public int find(String[] haystack, String needle) {
+       System.out.println("Checking index: ");
         for (int i = 0; i < haystack.length; i++) {
+            System.out.print(i + " ");
             if (haystack[i].equals(needle)) {
                 return i;
             }
@@ -42,23 +44,25 @@ class BinaryFinder implements Finder {
         int marker = needle.compareTo(haystack[center]);
         
         while (rightSearch >= leftSearch) {
-            if (marker == 0) {
-                return center;
-            } else if (marker > 0) {
+            center = leftSearch + (rightSearch - leftSearch) / 2; //update center of array
+            marker = needle.compareTo(haystack[center]); //update marker
+            if (marker > 0) {
                 leftSearch = center + 1;
             } else if (marker < 0) {
                 rightSearch = center - 1;
+            } else if (marker == 0) {
+                return center;
             }
         }
         return -1; //if not found
     }
 }
 
-public class BinaryFinder_1Lyon {
+public class BinaryFinder_1LyonV2 {
     public static void main(String[] args) {
-        //make things
+        //make the finders
         SequentialFinder finderS = new SequentialFinder();
-        SequentialFinder finderB = new SequentialFinder();
+        BinaryFinder finderB = new BinaryFinder();
         Scanner input = new Scanner(System.in);
         boolean looping = true;
 
@@ -82,7 +86,7 @@ public class BinaryFinder_1Lyon {
                 if (output == -1) {
                     System.out.println("Query not found!"); //if not found
                 } else {
-                    System.out.println("Target found at index " + output + "!"); //if target found
+                    System.out.println("\nTarget found at index " + output + "!"); //if target found
                 }
 
                 System.out.println("----------");
@@ -100,7 +104,7 @@ public class BinaryFinder_1Lyon {
                 if (output == -1) {
                     System.out.println("Query not found!"); //if not found
                 } else {
-                    System.out.println("Target found at index " + output + "!"); //if target found
+                    System.out.println("\nTarget found at index " + output + "!"); //if target found
                 }
 
                 System.out.println("----------");
