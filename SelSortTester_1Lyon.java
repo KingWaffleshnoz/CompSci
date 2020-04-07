@@ -7,6 +7,23 @@ import java.util.Random;
  * implementing a selection sorter that finds the largest element and moves it to the back of a list of elements
  */
 public class SelSortTester_1Lyon {
+    /**
+     * swaps two objects in an array
+     * @param array specify which array to target
+     * @param i object 1
+     * @param j object 2
+     */
+    public static void swap(String array[], int i, int j) {
+        String temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
+    /**
+     * sorts an array BACK TO FRONT using a selection algorithm
+     * @param array specify target array
+     * @param n array length; can use array.length
+     */
     public static void selSort(String array[], int n) {
         int i; //first placeholder
         int j; //second placeholder
@@ -20,22 +37,21 @@ public class SelSortTester_1Lyon {
                 }
             } 
             
-            String temp = array[max];
-            array[max] = array[i];
-            array[i] = temp;
+            swap(array, max, i);
         }  
     }
 
+    //test selsort method
     public static void main(String[] args) {
-        String[] names = {"Darwin", "Daly", "Curie", "Archimedes", "Newton", "Einstein", "Roebling", "Hopper", "Galileo", "Tesla"}; //declare array
+        String[] names = {"Darwin", "Daly", "Curie", "Archimedes", "Newton", "Einstein", "Roebling", "Hopper", "Tesla", "Galileo"}; //declare array
 
-        //print
+        //print original (above)
         System.out.println("Array:");
-        for (int i = 0; i < names.length - 1; i++) {
+        for (int i = 0; i < names.length; i++) {
             System.out.print(names[i] + " ");
         }
 
-        //shuffle
+        //shuffle it
         Random rand = new Random();
         for (int i = 0; i < names.length; i++) {
             int target = rand.nextInt(names.length);
@@ -45,17 +61,17 @@ public class SelSortTester_1Lyon {
 			names[i] = temp;
         }
 
-        //print
+        //print shuffled array
         System.out.println("\nRandomized Array:");
-        for (int i = 0; i < names.length - 1; i++) {
+        for (int i = 0; i < names.length; i++) {
             System.out.print(names[i] + " ");
         }
 
         selSort(names, names.length); //sort
 
-        //print
+        //print sorted array
         System.out.println("\nSorted Array:");
-        for (int i = 0; i < names.length - 1; i++) {
+        for (int i = 0; i < names.length; i++) {
             System.out.print(names[i] + " ");
         }
     }
