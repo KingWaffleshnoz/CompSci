@@ -36,8 +36,7 @@ public class SelSortTester_1Lyon {
                     max = j;
                 }
             } 
-            
-            swap(array, max, i);
+            swap(array, max, i); //swap
         }  
     }
 
