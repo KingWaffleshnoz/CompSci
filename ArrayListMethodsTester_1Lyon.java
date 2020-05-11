@@ -94,7 +94,7 @@ class ArrayListMethods {
     public boolean hasDuplicates() {
         ArrayList<Integer> exValues = new ArrayList<Integer>();
         for (int n : values) {
-            if(exValues.contains(n)) {
+            if (exValues.contains(n)) {
                 return true;
             } else {
                 exValues.add(n);
