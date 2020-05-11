@@ -11,11 +11,29 @@ import java.util.ArrayList;
  */
 public class DiceTester_1Lyon {
     public static void main(String[] args) {
+        //make rolls
         ArrayList<Integer> rolls = new ArrayList<Integer>();
         for (int i = 0; i < 20; i++) {
             rolls.add((int)(Math.random() * 6 + 1));
         }
 
+        //show list
         System.out.println(rolls);
+
+        //mark list
+        for (int i = 0; i < rolls.size(); i++) {
+            int duplicate = 0;
+            int count = 0;
+            int start;
+            int end;
+            if (rolls.get(i) != duplicate) {
+                duplicate = rolls.get(i);
+                start = i;
+            } else {
+                count++;
+                end = i;
+            }
+        }
+        
     }
 }
