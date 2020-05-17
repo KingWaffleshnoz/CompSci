@@ -1,128 +1,126 @@
-import java.lang.Math;
 import java.util.Random;
 
+/**
+ * @author Jared Lyon
+ * Sorts-A4: Sort Speed Tester
+ * Tests the speed of selection and insertion sorter algorithms in ordered and random arrays
+ */
 interface Sorter {
-    int sort(int[] array, int n);
+    void sort(int[] haystack);
 }
 
 class SelectionSorter implements Sorter {
     /**
-     * swaps two objects in an array
-     * @param array specify which array to target
-     * @param i object 1
-     * @param j object 2
+     * swaps inputted arguments 
+     * @param arr
+     * @param index1
+     * @param index2
      */
-    public static void swap(int array[], int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 
     /**
-     * sorts an array BACK TO FRONT using a selection algorithm
-     * @param array specify target array
-     * @param n array length; can use array.length
+     * finds maxPos of inputted array
+     * @param arr
+     * @param to
+     * @return
      */
-    public int sort(int[] array, int n) {
-        int i; //first placeholder
-        int j; //second placeholder
-        int max; //current max
-  
-        for (i = array.length - 1; i >= 1; i--) {  
-            max = i;  
-            for (j = i - 1; j >= 0; j--) {
-                if (array[j] > max) {
-                    max = j;
-                }
-            } 
-            swap(array, max, i); //swap
-        }  
+    public static int maxPosition(int[] arr, int n) {
+        int max = 0;
+        int maxItem = arr[0];
+        for (int i = 1; i <= n; i++) {
+            if (maxItem < arr[i]) {
+                maxItem = arr[i];
+                max = i;
+            }
+        }
+        return max;
+    }
+
+    /**
+     * sorts the given array via selection
+     * @param arr
+     */
+    public void sort(int[] arr) {
+        for (int i = arr.length-1; i >= 0; i--) {
+            int j = maxPosition(arr, i);
+            swap(arr, j, i);
+        }
     }
 }
 
 class InsertionSorter implements Sorter {
     /**
-     * sorts an array using an insertion algorithm
-     * @param array specifies target array
-     * @param n array length
+     * sorts the given array via insertion
+     * @param arr
      */
-    public int[] sort(int[] array, int n) {
-        int i; //first placeholder
-        int j; //second placeholder
-        int min; //current min
-        for ( i = 0; i < array.length; i++) {
-            min = array[i];
-            j = i - 1;
-
-            while (array[j] > min && j >= 0) {
-                array[j + 1] = array[j];
-                j = j - 1;
+    public void sort (int[] arr) {
+        for (int i = 1; i < arr.length; i++ ) {
+            int next = arr[i];
+            int j = i - 1;
+            
+            while (j >= 0 && arr[j] > next) {
+                arr[j + 1] = arr[j];
+                j--;
             }
-
-            array [j + 1] = min;
+            arr[j + 1] = next;
         }
     }
 }
 
 public class SortSpeedTester_1Lyon {
-    int[] nums = new int[100];
-    
-    public void createNums() {
-        for (int i = 0; i < nums.length; i++) {
-            nums[i] = (int)((Math.random() * 100) + 1);
-        }
-    }
-
-    public int[] getNums() {
-        return nums;
-    }
-
     public static void main(String[] args) {
-        SelectionSorter sorterS = new SelectionSorter();
-        InsertionSorter sorterI = new InsertionSorter();
-      
-        System.out.println("Testing Sequential Finder with an array of 25400...");
-        System.out.println("Finished in: " + runTest(finderS, 25400) + "  ms");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("Testing Binary Finder with an array of 25400...");
-        System.out.println("Finished in: " + runTest(finderB, 25400) + "  ms");
+        Sorter sorter = new SelectionSorter();
+        System.out.println("----------");
+        System.out.println("Testing selection sorter...");
+        System.out.println("Random array test:");
+        System.out.println(runTest(sorter, 25400, false) + " milliseconds!");
+        System.out.println("Ordered array test:");
+        System.out.println(runTest(sorter, 25400, true) + " milliseconds!");
+
+        System.out.println("----------");
+        System.out.println("Switching to insertion sorter...");
+        sorter = new InsertionSorter(); //set sorter to insertion
+        System.out.println("Random array test:");
+        System.out.println(runTest(sorter, 25400, false) + " milliseconds!");
+        System.out.println("Ordered array test:");
+        System.out.println(runTest(sorter, 25400, true) + " milliseconds!");
+        System.out.println("----------");
+
+        System.out.println("\nThanks for testing and go Bells! :)");
     }
 
-    public static long runTest(IntFinder finder, int numInts) {
-        Random random = new Random(); //create random generator
-        int[] array = new int[numInts]; //create int array
-        array[0] = random.nextInt(Integer.MAX_VALUE / numInts); //start array[0] as a random int between 0 and Integer.MAX_VALUE/numInts
-
-        //fill out the rest of the array
-        for (int i = 1; i < numInts; i++) {
-           array[i] = array[i-1] + random.nextInt(Integer.MAX_VALUE / numInts);
-        }
-
-        long startTime = System.currentTimeMillis(); //get the current system time (in milliseconds)
-        
-        //search for 10 random values inside of the array
-        for (int i = 0; i < 10; i++) {
-           int key = array[random.nextInt(array.length)];
-           finder.find(array, key);
-        } 
-
-        long endTime = System.currentTimeMillis(); //record end time
-        System.out.println("Ten tests finished in " + (endTime - startTime) + " ms!"); //return time elapsed
-
-        //If this completes quickly, then go to 50 or 100 tests.
-        if (5 > (endTime - startTime)) {
-            System.out.println("Test completed too quickly; conducting one hundred...");
-            startTime = System.currentTimeMillis(); //reset start time
-
-            ////search for 100 random values inside of the array
-            for (int i = 0; i < 100; i++) {
-                int key = array[random.nextInt(array.length)];
-                finder.find(array, key);
+    /**
+     * tests the inputted sorter yay woohoo
+     * @param sorter
+     * @param size
+     * @param sorted
+     * @return
+     */
+    public static long runTest(Sorter sorter, int size, boolean sorted) {
+        long start = System.currentTimeMillis(); //shoutout to ben for teaching me how to use long
+        int[] array = generate(size, sorted); //see below function
+        sorter.sort(array); //sort the inputted array
+        long finish = System.currentTimeMillis(); //grab the end time
+        return (finish - start); //print result
+    }
+   
+    public static int[] generate(int size, boolean sorted) {
+        Random randomGenerator = new Random();
+        int[] array = new int[size];
+        if (sorted) {
+            array[0] = randomGenerator.nextInt(Integer.MAX_VALUE / size);
+            for (int i = 1; i < size; i++) {
+                array[i] = array[i - 1] + randomGenerator.nextInt(Integer.MAX_VALUE / size);
             }
-
-            endTime = System.currentTimeMillis(); //reset end time
+        } else if (!sorted) {
+            for (int j = 0; j < size; j++) {
+                array[j] = randomGenerator.nextInt(Integer.MAX_VALUE);
+            }
         }
-        System.out.println("Tests finished in " + (endTime - startTime) + " ms!"); //return time elapsed
-        return endTime - startTime;
+        return array;
     }
 }
