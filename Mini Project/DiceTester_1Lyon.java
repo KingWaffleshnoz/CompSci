@@ -1,5 +1,4 @@
-import java.lang.Math;
-import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * @author jared lyon
@@ -12,28 +11,37 @@ import java.util.ArrayList;
 public class DiceTester_1Lyon {
     public static void main(String[] args) {
         //make rolls
-        ArrayList<Integer> rolls = new ArrayList<Integer>();
-        for (int i = 0; i < 20; i++) {
-            rolls.add((int)(Math.random() * 6 + 1));
-        }
+        Random rand = new Random();
+        int[] array = new int[20];
+        int longestRun = 1;
+        int currentRun = 1;
+        int longestRunStart = 0;
+        int currentRunStart = 1;
 
-        //show list
-        System.out.println(rolls);
-
-        //mark list
-        for (int i = 0; i < rolls.size(); i++) {
-            int duplicate = 0;
-            int count = 0;
-            int start;
-            int end;
-            if (rolls.get(i) != duplicate) {
-                duplicate = rolls.get(i);
-                start = i;
+        System.out.print("Generated array: \n");
+        for (int i = 0; i < array.length; i++) {
+            array[i] = rand.nextInt(6); //add random number
+            System.out.print(array[i] + " "); //print array
+            if (i != 0 && array[i - 1] == array[i]) {
+                //if new number equals last number...
+                currentRun++; //record current run
+                if (currentRun > longestRun) {
+                    longestRunStart = currentRunStart; //set index to newest run
+                    longestRun = currentRun; //set above record to current run
+                }
             } else {
-                count++;
-                end = i;
+                //if new number is different from the last number...
+                currentRun = 1; //reset the current run length
+                currentRunStart = i; //reset the current run start index
             }
         }
-        
+
+        //record results
+        System.out.print("\nIdentifying longest run: \n");
+        for (int i = 0; i < longestRunStart; i++) { System.out.print(array[i] + " "); } //prints all number leading up to the run
+        System.out.print("( "); //add first parentheses
+        for (int i = longestRunStart; i < (longestRunStart + longestRun); i++) { System.out.print(array[i] + " "); } //prints the run itself
+        System.out.print(") "); //end parentheses
+        for (int i = (longestRunStart + longestRun); i < 20; i++) { System.out.print(array[i] + " "); } //all remaining numbers
     }
 }
