@@ -8,7 +8,7 @@ import java.lang.Math;
  * AList-A11: Blackjack Game
  * Creates a BlackjackGame Class and an object of that class that will play one or more games of BlackJack.
  */
-public class BlackjackGame_1LyonV4 {
+public class BlackjackGame_1LyonV5 {
     public static void main( String[] args ) {
         BlackjackGame newGame = new BlackjackGame();
         newGame.run();
@@ -219,16 +219,11 @@ class Dealer {
     public int getHandValue() {
         int hand = 0;
         int count = 0;
-        if (hand <= 11 && count > 0) {
-            hand += 10;
-            Ace = true;
-        }
-
         for (Card card : dealerHand) {
-            if (card.getValue() == 1) {
-                count++;
-            }
             hand += card.getValue();
+            if (card.getValue() == 1 && hand <= 11) {
+                hand += 10; //ace check
+            }
         }
         return hand;
     }
@@ -260,10 +255,10 @@ class Dealer {
 
         for (Card card : dealerHand) {
             if (Ace && card.getValue() == 1) {
-                System.out.println(card + " [" + 11 + "]");
+                System.out.println(card);
                 Ace = false;
             } else {
-                System.out.println(card + " [" + card.getValue() + "]");
+                System.out.println(card);
             }
         }
 
@@ -326,16 +321,11 @@ class Player {
     public int getHandValue() {
         int hand = 0;
         int count = 0;
-        if (hand <= 11 && count > 0) {
-            hand += 10;
-            Ace = true;
-        }
-
         for (Card card : playerHand) {
-            if (card.getValue() == 1) {
-                count++;
-            }
             hand += card.getValue();
+            if (card.getValue() == 1 && hand <= 11) {
+                hand += 10; //ace check
+            }
         }
         return hand;
     }
@@ -345,10 +335,10 @@ class Player {
 
         for (Card card : playerHand) {
             if (Ace && card.getValue() == 1) {
-                System.out.println(card + " [" + 11 + "]");
+                System.out.println(card);
                 Ace = false;
             } else {
-                System.out.println(card + " [" + card.getValue() + "]");
+                System.out.println(card);
             }
         }
 
@@ -556,7 +546,13 @@ class Card {
     }
 
     public int getValue() {
-        return value;
+        if (value == 1) {
+            return 1;
+        } else if (value == 10 || value == 11 || value == 12) {
+            return 10;
+        } else {
+            return value;
+        }
     }
 }
 
